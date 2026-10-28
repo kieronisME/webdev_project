@@ -8,35 +8,43 @@ jobs:
     defaults:
       run:
         working-directory: backend
+
     steps:
+    - name: Check out the code
+      uses: actions/checkout@v4
 
-    name: backend checking for node 
-    uses: actions/setup-node@v4
-    with:
-    node-version: 22
+    - name: backend checking for node 
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
 
-    name: fresh install of dependencies
-    run: npm ci
+    - name: fresh install of dependencies
+      run: npm ci
+
 
 
   docker:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v7 
-      
+        uses: actions/checkout@v4
+        
       - name: Build the production image
         run: docker build --target production -t webdev_project
   
   frontend:
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
     steps:
-    name: frontend checking for node  
-    uses: actions/setup-node@v4
-    with:
-    node-version: 22
+    - name: Checking code
+      uses: actions/checkout@v4
 
-    name: fresh install of dependencies
-    run: npm ci
+    - name: frontend checking for node  
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: fresh install of dependencies
+      run: npm ci
