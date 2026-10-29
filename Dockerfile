@@ -35,7 +35,7 @@ ENV NODE_ENV=production
 RUN npm ci --omit=dev
 COPY backend/ ./
 
-COPY --from=frontend /backend/dist ./dist
+COPY --from=frontend /frontend/dist ./dist
 
 RUN mkdir -p uploads && chown node:node uploads
 
