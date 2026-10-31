@@ -18,6 +18,8 @@ export default function App() {
         <Route path="/" element={<FilesPage />} />
         <Route path="/account" element={<AccountPage />} />
       </Route>
+      <h1>My notes</h1>
+      <p>{count} notes</p>
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
