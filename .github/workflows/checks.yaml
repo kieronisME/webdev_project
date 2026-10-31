@@ -23,6 +23,11 @@ jobs:
     - name: fresh install of dependencies
       run: npm ci
 
+    - name: Lint
+      run: npm run lint
+
+    - name: Check formatting
+      run: npm run format:check
 
 
   docker:
@@ -50,3 +55,9 @@ jobs:
 
     - name: fresh install of dependencies
       run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Check formatting
+      run: npm run format:check
