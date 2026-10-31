@@ -5,7 +5,7 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import AccountPage from "@/pages/AccountPage";
 import NotFoundPage from "@/pages/NotFoundPage";
-
+const count = 11;
 // Which page to show for each URL
 export default function App() {
   return (
@@ -18,6 +18,8 @@ export default function App() {
         <Route path="/" element={<FilesPage />} />
         <Route path="/account" element={<AccountPage />} />
       </Route>
+      <h1>My notes</h1>
+      <p>{count} notes</p>
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
