@@ -42,4 +42,4 @@ RUN mkdir -p uploads && chown node:node uploads
 # use node as run
 USER node
 
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]
