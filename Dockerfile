@@ -26,7 +26,7 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 COPY frontend/ ./
 RUN npm run build
-git
+
 # now in production on the depenecies from frontend and back end w need will run 
 FROM base AS production
 
