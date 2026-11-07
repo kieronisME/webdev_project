@@ -1,6 +1,8 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import config from "./config.js";
 import { pool } from "./db.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -13,8 +15,8 @@ import {
 
 const app = express();
 
-// Security middleware
-app.use(helmet());
+// Disable strict CSP so React can load scripts
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // Only allow the frontend to call the API from a browser
 app.use(cors({ origin: config.CORS_ORIGIN }));
@@ -31,6 +33,19 @@ app.get("/health", async (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/storage", storageRoutes);
 app.use("/api/files", filesRoutes);
+
+// Serve the static React frontend files from the dist folder
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.join(__dirname, "../dist")));
+
+// Send the index.html for any frontend routes
+app.use((req, res, next) => {
+  if (req.method === "GET" && !req.path.startsWith("/api")) {
+    res.sendFile(path.join(__dirname, "../dist", "index.html"));
+  } else {
+    next();
+  }
+});
 
 // Important that this is at the end so that it only handles requests that did not match previous routes
 app.use(unknownEndpoint);
