@@ -11,10 +11,13 @@ import {
   errorHandler,
 } from "./middleware/error.middleware.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
 
-// Security middleware
-app.use(helmet());
+
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // Only allow the frontend to call the API from a browser
 app.use(cors({ origin: config.CORS_ORIGIN }));
@@ -31,6 +34,19 @@ app.get("/health", async (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/storage", storageRoutes);
 app.use("/api/files", filesRoutes);
+
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, "../dist", "index.html"));
+  } else {
+    next();
+  }
+});
 
 // Important that this is at the end so that it only handles requests that did not match previous routes
 app.use(unknownEndpoint);
