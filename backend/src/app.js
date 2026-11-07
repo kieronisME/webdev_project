@@ -1,6 +1,8 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import config from "./config.js";
 import { pool } from "./db.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -11,11 +13,7 @@ import {
   errorHandler,
 } from "./middleware/error.middleware.js";
 
-import path from "path";
-import { fileURLToPath } from "url";
-
 const app = express();
-
 
 app.use(helmet({ contentSecurityPolicy: false }));
 
@@ -35,13 +33,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/storage", storageRoutes);
 app.use("/api/files", filesRoutes);
 
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.use((req, res, next) => {
-  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+  if (req.method === "GET" && !req.path.startsWith("/api")) {
     res.sendFile(path.join(__dirname, "../dist", "index.html"));
   } else {
     next();
