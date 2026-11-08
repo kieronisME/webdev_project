@@ -32,7 +32,7 @@ export default function AppLayout() {
               {user.first_name}
             </Link>
             <Button variant="outline" size="sm" onClick={logout}>
-              Log out
+              Log outs
             </Button>
           </div>
         </div>
