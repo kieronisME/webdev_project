@@ -9,15 +9,11 @@ import * as storageService from "./storage.service.js";
 // The columns the file list can be sorted by
 const SORT_COLUMNS = ["name", "size_bytes", "created_at"];
 
-// Lists the user's files, newest first by default.
-// search: only files whose name contains this text
-// starredOnly: only starred files
-// sort: the column to sort by, e.g. "name"
-// order: "asc" or "desc"
 export async function listFiles(
   userId,
   { search, starredOnly, sort = "created_at", order = "desc" },
 ) {
+
   // Only the user's files, plus any filters
   const conditions = [eq(files.user_id, userId)];
   if (search) {
