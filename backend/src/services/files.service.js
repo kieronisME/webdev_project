@@ -7,8 +7,6 @@ import * as authService from "./auth.service.js";
 import * as storageService from "./storage.service.js";
 
 // The columns the file list can be sorted by
-const SORT_COLUMNS = ["name", "size_bytes", "created_at"];
-
 export async function listFiles(
   userId,
   { search, starredOnly, sort = "created_at", order = "desc" },
