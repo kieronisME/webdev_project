@@ -11,7 +11,6 @@ export async function listFiles(
   userId,
   { search, starredOnly, sort = "created_at", order = "desc" },
 ) {
-
   // Only the user's files, plus any filters
   const conditions = [eq(files.user_id, userId)];
   if (search) {
