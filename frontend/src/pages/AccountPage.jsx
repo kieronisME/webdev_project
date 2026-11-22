@@ -19,7 +19,7 @@ export default function AccountPage() {
 
   return (
     <div className="mx-auto max-w-xl space-y-4">
-      <h1 className="text-2xl font-semibold">Your account yay</h1>
+      <h1 className="text-2xl font-semibold">Your account</h1>
       <AvatarCard />
       <NameCard />
       <PasswordCard />
